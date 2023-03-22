@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Modal from 'react-bootstrap/Modal';
 import { NavLink } from 'react-router-dom';
 import "./Navbar.css"
 import axios from 'axios'
 import Swal from 'sweetalert2'
 import { API_BASE_URL } from '../config';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
 
@@ -16,6 +17,9 @@ const Navbar = () => {
   const [imageDataPreview, setImageDataPreview] = useState([])
   const [images, setImages] = useState([])
   const handleClose = () => setAddProduct(false);
+
+  const navigate = useNavigate();
+
   const handleShow = (e) => {
     e.preventDefault();
     setAddProduct(true);
@@ -53,8 +57,13 @@ const Navbar = () => {
         title: 'Product created successfully!'
       })
       setAddProduct(false)
+      navigate('/products')
     }
   }
+
+  useEffect(() => {
+    setImageDataPreview([])
+  }, [])
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-primary bg-gradient">
